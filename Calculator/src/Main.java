@@ -3,30 +3,27 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        final byte monthsInYear = 12;
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Lets calculate your mortgage!");
         System.out.println("How much is your loan amount?");
-        System.out.print("Principal: ");
+        System.out.print("Principal Loan Amount: ");
         int principal = scanner.nextInt();
         System.out.println("What is your interest rate?");
         System.out.print("Interest Rate: ");
-        double intRate = scanner.nextDouble();
+        float annualInterestRate = scanner.nextFloat();
         System.out.println("How many years is your loan");
         System.out.print("Loan Years: ");
-        int loanYears = scanner.nextInt();
-        double monthlyInterestRate = ((intRate / 100) / 12);
-        int numberOfPayments = (loanYears * 12);
-        double topHalf1 = (1 + monthlyInterestRate);
-        double topHalf2 = Math.pow(topHalf1,numberOfPayments);
-        double topHalf3 = monthlyInterestRate * topHalf2;
-        double bottomHalf1 = 1 + monthlyInterestRate;
-        double bottomHalf2 = Math.pow(bottomHalf1,numberOfPayments);
-        double bottomHalf3 = bottomHalf2 - 1;
-        double lastPart = (topHalf3 / bottomHalf3);
-        double monthlyPayment = principal * lastPart;
+        byte loanYears = scanner.nextByte();
+        float monthlyInterestRate = annualInterestRate / 100 / monthsInYear;
+        int numberOfPayments = loanYears * monthsInYear;
+
+        double mortgage = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments) / (Math.pow(1 + monthlyInterestRate, numberOfPayments)));
+
         NumberFormat currency = NumberFormat.getCurrencyInstance();
-        String monthlyPaymentDollars = currency.format(monthlyPayment);
-        System.out.println("Your monthly mortgage payment is " + monthlyPaymentDollars);
+        String monthlyMortgagePayment = currency.format(mortgage);
+        System.out.println("Your monthly mortgage payment is " + monthlyMortgagePayment);
 
 
 
