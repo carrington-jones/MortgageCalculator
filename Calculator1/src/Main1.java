@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Main1 {
     public static void main(String[] args) {
-            final byte MONTHS_IN_YEAR = 12;
-            final byte PERCENT = 100;
+            final byte monthsInYear = 12;
+            final byte percent = 100;
 
             int principal;
             float monthlyInterest;
@@ -24,7 +24,7 @@ public class Main1 {
                 System.out.print("Annual Interest Rate: ");
                 float annualInterest = scanner.nextFloat();
                 if (annualInterest >= 1 && annualInterest <= 30) {
-                    monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
+                    monthlyInterest = annualInterest / percent / monthsInYear;
                     break;
                 }
                 System.out.println("Enter a value between 1 and 30");
@@ -34,7 +34,7 @@ public class Main1 {
                 System.out.print("Period (Years): ");
                 byte years = scanner.nextByte();
                 if (years >= 1 && years <= 30) {
-                    numberOfPayments = years * MONTHS_IN_YEAR;
+                    numberOfPayments = years * monthsInYear;
                     break;
                 }
                 System.out.println("Enter a value between 1 and 30.");
