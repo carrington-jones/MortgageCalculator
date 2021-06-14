@@ -1,6 +1,11 @@
 package MortgageCalculatorPackage;
 
+import java.text.NumberFormat;
+
 public class MortgageCalculator {
+    private final static byte monthsInYear = 12;
+    private final static byte percent = 100;
+
     private int principal;
     private float annualInterest;
     private byte years;
@@ -13,8 +18,8 @@ public class MortgageCalculator {
 
     public double calculateMortgage() {
 
-        float monthlyInterest = annualInterest / Main1.percent / Main1.monthsInYear;
-        int numberOfPayments = years * Main1.monthsInYear;
+        float monthlyInterest = getMonthlyInterest();
+        int numberOfPayments = years * monthsInYear;
 
         double mortgage = principal
                 * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
@@ -25,8 +30,8 @@ public class MortgageCalculator {
 
     public double calculateRemainingBalance(int numberOfPaymentsMade) {
 
-        float monthlyInterest = annualInterest / Main1.percent / Main1.monthsInYear;
-        int numberOfPayments = years * Main1.monthsInYear;
+        float monthlyInterest = getMonthlyInterest();
+        int numberOfPayments = getNumberOfPayments();
 
 
         double remainingBalance = principal
@@ -35,5 +40,21 @@ public class MortgageCalculator {
 
         return remainingBalance;
 
+    }
+
+    public double[] getRemainingBalances() {
+        var balances = new double[getNumberOfPayments()];
+        for (int month = 1; month <= balances.length; month++) {
+            balances[month -1] = calculateRemainingBalance(month);
+        }
+        return balances;
+    }
+
+    private int getNumberOfPayments() {
+        return years * monthsInYear;
+    }
+
+    private float getMonthlyInterest() {
+        return annualInterest / percent / monthsInYear;
     }
 }
